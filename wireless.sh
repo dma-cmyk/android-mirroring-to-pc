@@ -1,26 +1,35 @@
 #!/bin/bash
-read -p "Android端末をUSBで接続して下さい"
+
+read -rp "Android端末をUSBで接続して下さい"
 
 echo ""
 
-read -p "使用するポートを入力して下さい：" Port
-adb tcpip $Port
+read -rp "使用するポートを入力して下さい：" Port
+adb tcpip "$Port"
 
 echo ""
 
-read -p "Android端末のUSB切断して下さい"
+read -rp "Android端末のUSB切断して下さい"
 
 echo ""
 
-read -p "接続する端末のIPを入力して下さい：" IP
-adb connect $IP:$Port
+read -rp "接続する端末のIPを入力して下さい:" IP
+adb connect "$IP:$Port"
 
-echo ""
+cat << 'EOF'
+
+**************接続中のデバイス**************
+
+EOF
 
 adb devices
 
-echo ""
+cat << 'EOF'
 
-read -p "↑デバイスが認識できていればミラーリングを開始できます"
+*********************************************
+
+EOF
+
+read -rp "↑デバイスが認識できていればミラーリングを開始できます"
 
 scrcpy
